@@ -1,0 +1,20 @@
+apiVersion: apps/v1  # determine kind of object first, then find which API version the object belongs to
+kind: Deployment  # deployments manage sets of identical pods
+metadata:
+  name: client-deployment  # name does not matter
+spec:
+  replicas: 1  # number of pods to make with the template provided below
+  selector:
+    matchLabels:
+      component: client  # label used to map to service, which does all networking
+  template:  # define the configuration of every pod created by this deployment
+    metadata:
+      labels:
+        component: client  # label used to map to service, which does all networking
+    spec:
+      containers:
+        - name: client  # name does not matter
+          image: lukondefmwila/dkr-multicontainer-app-client
+          ports:
+            - containerPort: 3000
+          resources: {}
